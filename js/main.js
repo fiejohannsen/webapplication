@@ -30,7 +30,7 @@ function setActiveTab(pageId) {
 
 // set default page
 function setDefaultPage() {
-  let page = "home";
+  let page = "profile";
   if (location.hash) {
     page = location.hash.slice(1);
   }
