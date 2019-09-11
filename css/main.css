@@ -1,17 +1,30 @@
+/*GLOBAL RULES*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import url("https://use.typekit.net/pog6zkp.css");
+
 /* ---------- root variables ---------- */
 :root {
   --white: #ffffff;
   --light-blue: #eef2f5;
-  --light-green: rgb(172, 198, 201);
+  --green-one: #bdd4b3;
+  --green-two: #8cb38f;
+  --green-three: #657e70;
+  --green-four: #475a5a;
   --light-grey: #f1f1f4;
   --text-color-light: #f1f1f1;
   --text-color-dark: #8D8D8D;
+  --font-family: "futura-pt", sans-serif;
 }
 
 /* ---------- general styling ---------- */
 html {
   color: var(--text-color-dark);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: var(--font-family);
   height: 100%;
   text-align: center;
   width: 100%;
@@ -30,7 +43,6 @@ h1 {
 
 /* ---------- topbar styling ---------- */
 .topbar {
-  background-color: var(--white);
   color: var(--text-color-light);
   padding: 13.5px;
   text-transform: uppercase;
@@ -44,6 +56,21 @@ h1 {
 .topbar h2 {
   margin: 0;
   font-weight: 300;
+}
+
+.topbar a {
+  text-decoration: none;
+  color: var(--text-color-light);
+  position: absolute;
+  top: 20px;
+}
+
+.topbar a.left {
+  left: 20px;
+}
+
+.topbar a.right {
+  right: 20px;
 }
 
 /* ---------- tabbar styling ---------- */
@@ -91,13 +118,9 @@ h1 {
   animation: fadeIn 0.4s;
   /* padding equals height of tabbar and topbar */
   padding: 55px 0;
-}
-
-/* ---------- logo styling ---------- */
-.logo {
-  margin: 2em auto;
-  width: 100%;
-  max-width: 300px;
+  margin-top: 20%;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 /* ---------- animations ---------- */
@@ -110,4 +133,118 @@ h1 {
   to {
     opacity: 1
   }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- loader styling ---------- */
+#loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999999999;
+  overflow: hidden;
+  background: var(--loader-background-color);
+  text-align: center;
+}
+
+.spinner {
+  border: 5px solid var(--light-grey);
+  border-radius: 50%;
+  border-top: 5px solid var(--light-green);
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 1s linear infinite;
+  /* Safari */
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.4s, opacity 0.4s linear;
+}
+
+/* ---------- authentication styling ---------- */
+#firebaseui-auth-container {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.firebaseui-container {
+  font: 16px var(--font-family);
+  text-align: center;
+  background-color: inherit;
+}
+
+.firebaseui-title {
+  text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-color-dark);
+}
+
+.firebaseui-button {
+  margin-left: 0px;
+}
+
+.firebaseui-textfield {
+  background-color: var(--white);
+  border-radius: 30px;
+  padding-left: 15px;
+  height: 65px;
+}
+
+.mdl-textfield--floating-label .mdl-textfield__label {
+  padding-left: 15px;
+}
+
+.firebaseui-card-header {
+  border-bottom: none;
+}
+
+.mdl-textfield__input {
+  border-bottom: none;
+}
+
+.mdl-button--raised.mdl-button--colored,
+.mdl-button--raised.mdl-button--colored:active,
+.mdl-button--raised.mdl-button--colored:hover {
+  background-color: var(--green-two);
+  color: var(--white);
+  width: 100%;
+  border-radius: 30px;
+  text-align: center;
+  height: 65px;
+  letter-spacing: 0.1em;
+}
+
+.firebaseui-textfield.mdl-textfield .firebaseui-label::after {
+  background-color: var(--green);
+}
+
+.firebaseui-card-actions>.firebaseui-form-actions {
+  text-align: center;
 }

@@ -7,46 +7,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Get started with HTML, CSS and JavaScript">
   <meta name="author" content="Rasmus Cederdorff">
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://use.typekit.net/pog6zkp.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
   <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 </head>
 
 <body>
   <!-- tabbar navigation -->
-  <nav class="tabbar">
+  <nav id="tabbar" class="tabbar hide">
     <a href="#add" onclick="showPage('add')">Add</a>
-    <a href="#profile" onclick="showPage('profile')">Profile</a>
+    <a href="#myplants" onclick="showPage('myplants')">My Plants</a>
     <a href="#calendar" onclick="showPage('calendar')">Calendar</a>
   </nav>
 
   <!-- pages -->
-
   <!-- add page -->
   <section id="add" class="page">
     <header class="topbar">
-      <h2>ADD</h2>
+      <h2>adddd</h2>
     </header>
-    <p>My Single Page Web App Template</p>
+
+    <div id="yo-container" class="col s12">
+      <div class="container">
+        <div class="row" id="plant-container">
+        </div>
+      </div>
+    </div>
+
+
   </section>
 
-  <!-- profile page -->
-  <section id="profile" class="page">
+  <!-- about page -->
+  <section id="myplants" class="page">
     <header class="topbar">
-      <h2>Profile</h2>
+      <h2>planter</h2>
+      <a class="right" href="#" onclick="logout()">Logout</a>
+
     </header>
-    <p>This is my profile page</p>
+    <p>This is my about page</p>
   </section>
 
-  <!-- calendar page -->
+
+
+  <!-- contact page -->
   <section id="calendar" class="page">
     <header class="topbar">
-      <h2>Calendar</h2>
+      <h2>callll</h2>
     </header>
-    <p>Hmm, there should be some calendar right here...</p>
+
   </section>
 
+  <section id="login" class="page">
+    <header class="topbar">
+      <h2>My Plants</h2>
+    </header>
+    <!-- firebase auth container  -->
+    <section id="firebaseui-auth-container"></section>
+  </section>
 
-
+  <!-- loader  -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <!-- main js file -->
   <script src="js/main.js"></script>
 </body>
