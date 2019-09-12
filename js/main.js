@@ -118,11 +118,14 @@ function appendselectedPlants() {
     console.log(plant.id);
     console.log(plant.data().name);
     htmlTemplate += `
+
     <div class="card">
+
       <div class="card-image added-plant-card-image">
+      <span class="card-title"><h3>${plant.data().name}</h3>
+      </span>
       <img src="${plant.data().img}">
-        <span class="card-title"><h3>${plant.data().name}</h3>
-</span>
+
         <a class="btn-floating halfway-fab waves-effect waves-light red" onclick="deletePlant('${plant.id}')">x</a>
       </div>
       <div class="card-content">
