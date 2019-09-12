@@ -33,6 +33,7 @@ html {
 
 body {
   margin: 0;
+  background: var(--light-blue);
 }
 
 h1 {
@@ -44,13 +45,17 @@ h1 {
 /* ---------- topbar styling ---------- */
 .topbar {
   color: var(--text-color-light);
-  padding: 13.5px;
+  background-color: var(--white);
   text-transform: uppercase;
   position: fixed;
+  width: 100%;
+  height: 10vh;
   top: 0;
   left: 0;
   right: 0;
   z-index: 9999;
+  border-bottom-left-radius: -30px;
+  border-bottom-right-radius: -30px;
 }
 
 .topbar h2 {
@@ -90,6 +95,7 @@ h1 {
   color: var(--text-color-dark);
   text-align: center;
   padding: 0px 0px;
+  margin: 0;
   width: 32.5%;
   text-decoration: none;
   font-size: 0.8em;
@@ -113,14 +119,20 @@ h1 {
 .page {
   display: none;
   /*min heigh is screen heigh minus height of tab and top bar */
-  min-height: calc(100vh - 110px);
-  background: var(--light-blue);
+  min-height: calc(100vh);
+  bottom: 0;
   animation: fadeIn 0.4s;
   /* padding equals height of tabbar and topbar */
   padding: 55px 0px;
   margin-top: 20%;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  background: var(--light-blue);
+}
+
+#login {
+  height: 100vh;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  background-image: url(../img/loginbackground.png);
 }
 
 /* ---------- animations ---------- */
@@ -196,6 +208,7 @@ h1 {
   font: 16px var(--font-family);
   text-align: center;
   background-color: inherit;
+  padding-top: 100px;
 }
 
 .firebaseui-title {
@@ -221,6 +234,23 @@ h1 {
 
 .firebaseui-textfield.mdl-textfield .firebaseui-input {
   border-bottom: none;
+}
+
+.firebaseui-error {
+  padding-top: 20px;
+}
+
+.firebaseui-card-actions>.firebaseui-form-actions {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.firebaseui-input-toggle-blur {
+  margin-right: 10px;
+}
+
+.mdl-button--primary.mdl-button--primary {
+  color: var(--text-color-dark);
 }
 
 .mdl-textfield--floating-label .mdl-textfield__label {
@@ -253,4 +283,74 @@ h1 {
 
 .firebaseui-card-actions>.firebaseui-form-actions {
   text-align: center;
+}
+
+/* Styling af Add side */
+.col>.card {
+  border-radius: 30px;
+  width: 90%;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.card-image {
+  background-color: var(--green-one);
+  border-radius: 30px;
+}
+
+.added-plant-card-image {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.card-content {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: auto auto;
+  grid-row-gap: 30px;
+}
+
+.card-content .card-icon {
+  width: 40%;
+  justify-self: center;
+  align-self: center;
+}
+
+.card-content>p {
+  justify-self: start;
+  align-self: center;
+  color: var(--text-color-dark);
+}
+
+.cal-img {
+  width: 85%;
+  margin-left: 5px;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-self: center;
+}
+
+#horizontal-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: auto;
+}
+
+#my-plants-container {
+  width: 100%;
+  height: auto;
+}
+
+#my-plants-container>.card {
+  border-radius: 30px;
+  width: 80%;
+  margin: auto 5px;
+  display: inline-block;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+#my-plants-container>.card>.added-plant-card-image>img {
+  width: 50%;
 }

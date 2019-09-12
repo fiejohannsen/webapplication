@@ -74,7 +74,7 @@ plantRef.onSnapshot(function(snapshotData) {
   appendPlants(plants);
 });
 
-// append users to the DOM
+// append plants to the DOM
 function appendPlants(plants) {
   let htmlTemplate = "";
   for (let plant of plants) {
@@ -88,15 +88,9 @@ function appendPlants(plants) {
       <img src="${plant.data().img}">
         <span class="card-title"><h3>${plant.data().name}</h3>
 </span>
-        <a class="btn-floating halfway-fab waves-effect waves-light red">+</a>
+        <a class="btn-floating halfway-fab waves-effect waves-light red" onclick="addPlant('${plant.id}')">+</a>
       </div>
-      <div class="card-content">
-      <img src="${plant.data().watericon}">
-      <p>${plant.data().water}</p>
-      <img src="${plant.data().shadeicon}">
-      <p>${plant.data().shade}</p>
-      <img src="${plant.data().calendar}">
-      </div>
+
     </div>
   </div>
 </div>
@@ -104,6 +98,50 @@ function appendPlants(plants) {
   }
   document.querySelector('#plant-container').innerHTML = htmlTemplate;
 }
+let selectedPlants = [];
+
+function addPlant(plantId) {
+  console.log(plantId);
+  plantRef.doc(plantId).onSnapshot(function(doc) {
+    console.log(doc.data());
+    selectedPlants.push(doc);
+    console.log(selectedPlants);
+    appendselectedPlants();
+
+  });
+
+}
+
+function appendselectedPlants() {
+  let htmlTemplate = "";
+  for (let plant of selectedPlants) {
+    console.log(plant.id);
+    console.log(plant.data().name);
+    htmlTemplate += `
+    <div class="card">
+      <div class="card-image added-plant-card-image">
+      <img src="${plant.data().img}">
+        <span class="card-title"><h3>${plant.data().name}</h3>
+</span>
+        <a class="btn-floating halfway-fab waves-effect waves-light red" onclick="deletePlant('${plant.id}')">x</a>
+      </div>
+      <div class="card-content">
+      <img class="card-icon" src="${plant.data().watericon}">
+      <p>${plant.data().water}</p>
+      <img class="card-icon" src="${plant.data().shadeicon}">
+      <p>${plant.data().shade}</p>
+      <img class="cal-img" src="${plant.data().calendar}">
+      </div>
+</div>
+    `;
+  }
+  document.querySelector('#my-plants-container').innerHTML = htmlTemplate;
+
+}
+
+
+
+
 
 
 
@@ -144,7 +182,6 @@ function logout() {
 
 function appendUserData(user) {
   document.querySelector('#myplants').innerHTML += `
-    <h3>${user.displayName}</h3>
-    <p>${user.email}</p>
+
   `;
 }

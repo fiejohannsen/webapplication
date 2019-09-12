@@ -31,7 +31,7 @@
       <h2>adddd</h2>
     </header>
 
-    <div id="yo-container" class="col s12">
+    <div id="add-container" class="col s12">
       <div class="container">
         <div class="row" id="plant-container">
         </div>
@@ -41,19 +41,23 @@
 
   </section>
 
-  <!-- about page -->
+  <!-- my plants page -->
   <section id="myplants" class="page">
     <header class="topbar">
       <h2>planter</h2>
       <a class="right" href="#" onclick="logout()">Logout</a>
 
     </header>
-    <p>This is my about page</p>
+    <div id="horizontal-wrapper">
+      <div id="my-plants-container">
+
+      </div>
+    </div>
   </section>
 
 
 
-  <!-- contact page -->
+  <!-- calendar page -->
   <section id="calendar" class="page">
     <header class="topbar">
       <h2>callll</h2>
@@ -63,7 +67,6 @@
 
   <section id="login" class="page">
     <header class="topbar">
-      <h2>My Plants</h2>
     </header>
     <!-- firebase auth container  -->
     <section id="firebaseui-auth-container"></section>
@@ -79,6 +82,8 @@
   <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <!-- main js file -->
   <script src="js/main.js"></script>
 </body>
