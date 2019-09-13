@@ -66,11 +66,12 @@ const db = firebase.firestore();
 const plantRef = db.collection("plants");
 
 let selectedPlantId = "";
+let plants = [];
 
 // ========== READ ==========
 // watch the database ref for changes
 plantRef.onSnapshot(function(snapshotData) {
-  let plants = snapshotData.docs;
+  plants = snapshotData.docs;
   appendPlants(plants);
 });
 
@@ -98,6 +99,26 @@ function appendPlants(plants) {
   }
   document.querySelector('#plant-container').innerHTML = htmlTemplate;
 }
+
+
+
+// Search function in add page topbar //
+function addSearch(value) {
+  console.log(value);
+  let filteredPlants = [];
+  for (let plant of plants) {
+    let name = plant.data().name.toLowerCase();
+    if (name.includes(value.toLowerCase())) {
+      filteredPlants.push(plant);
+    }
+  }
+  console.log(filteredPlants);
+  appendPlants(filteredPlants);
+}
+
+
+
+// Add plants to myplants
 let selectedPlants = [];
 
 function addPlant(plantId) {
@@ -106,15 +127,16 @@ function addPlant(plantId) {
     console.log(doc.data());
     selectedPlants.push(doc);
     console.log(selectedPlants);
-    appendselectedPlants();
+    appendselectedPlants(selectedPlants);
 
   });
 
 }
 
-function appendselectedPlants() {
+
+function appendselectedPlants(mySelectedPlants) {
   let htmlTemplate = "";
-  for (let plant of selectedPlants) {
+  for (let plant of mySelectedPlants) {
     console.log(plant.id);
     console.log(plant.data().name);
     htmlTemplate += `
@@ -142,7 +164,19 @@ function appendselectedPlants() {
 
 }
 
-
+// Search function in myplants page topbar //
+function myplantsSearch(value) {
+  console.log(value);
+  let filteredPlants = [];
+  for (let plant of selectedPlants) {
+    let name = plant.data().name.toLowerCase();
+    if (name.includes(value.toLowerCase())) {
+      filteredPlants.push(plant);
+    }
+  }
+  console.log(filteredPlants);
+  appendselectedPlants(filteredPlants);
+}
 
 
 

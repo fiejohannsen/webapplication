@@ -28,7 +28,9 @@
   <!-- add page -->
   <section id="add" class="page">
     <header class="topbar">
-      <h2>adddd</h2>
+      <div class="search-container">
+        <input class="search" type="search" placeholder="Search" onkeyup="addSearch(this.value)">
+      </div>
     </header>
 
     <div id="add-container" class="col s12">
@@ -41,10 +43,13 @@
 
   </section>
 
+
   <!-- my plants page -->
   <section id="myplants" class="page">
     <header class="topbar">
-      <h2>planter</h2>
+      <div class="search-container myplants-search-container">
+        <input class="search" type="search" placeholder="Search" onkeyup="myplantsSearch(this.value)">
+      </div>
       <a class="right" href="#" onclick="logout()">Logout</a>
 
     </header>
