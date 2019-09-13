@@ -85,11 +85,16 @@ function appendPlants(plants) {
     <div class="row">
   <div class="col s12 m6">
     <div class="card">
+
       <div class="card-image">
+      <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
+      <i class="medium material-icons">add_circle</i>
+      </a>
       <img src="${plant.data().img}">
+
         <span class="card-title"><h3>${plant.data().name}</h3>
 </span>
-        <a class="btn-floating halfway-fab waves-effect waves-light red" onclick="addPlant('${plant.id}')">+</a>
+
       </div>
 
     </div>
@@ -144,12 +149,14 @@ function appendselectedPlants(mySelectedPlants) {
     <div class="card">
 
       <div class="card-image added-plant-card-image">
+      <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
+      <i class="medium material-icons">cancel</i>
+      </a> 
       <span class="card-title"><h3>${plant.data().name}</h3>
       </span>
       <img src="${plant.data().img}">
 
-        <a class="btn-floating halfway-fab waves-effect waves-light red" onclick="deletePlant('${plant.id}')">x</a>
-      </div>
+           </div>
       <div class="card-content">
       <img class="card-icon" src="${plant.data().watericon}">
       <p>${plant.data().water}</p>

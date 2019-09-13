@@ -9,6 +9,7 @@
   <meta name="author" content="Rasmus Cederdorff">
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <link rel="stylesheet" href="css/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/pog6zkp.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -19,9 +20,16 @@
 <body>
   <!-- tabbar navigation -->
   <nav id="tabbar" class="tabbar hide">
-    <a href="#add" onclick="showPage('add')">Add</a>
-    <a href="#myplants" onclick="showPage('myplants')">My Plants</a>
-    <a href="#calendar" onclick="showPage('calendar')">Calendar</a>
+    <a href="#add" onclick="showPage('add')">
+      <i class="material-icons">add</i><span class="active-tab">Add</span>
+    </a>
+
+    <a href="#myplants" onclick="showPage('myplants')">
+      <i class="material-icons">person</i><span class="active-tab">My Plants</span>
+    </a>
+    <a href="#calendar" onclick="showPage('calendar')">
+      <i class="material-icons">event_note</i><span class="active-tab">Calendar</span>
+    </a>
   </nav>
 
   <!-- pages -->
@@ -29,7 +37,8 @@
   <section id="add" class="page">
     <header class="topbar">
       <div class="search-container">
-        <input class="search" type="search" placeholder="Search" onkeyup="addSearch(this.value)">
+        <i class="material-icons search-icon">search</i>
+        <input class="search" type="search" placeholder="search" onkeyup="addSearch(this.value)">
       </div>
     </header>
 
@@ -50,7 +59,9 @@
       <div class="search-container myplants-search-container">
         <input class="search" type="search" placeholder="Search" onkeyup="myplantsSearch(this.value)">
       </div>
-      <a class="right" href="#" onclick="logout()">Logout</a>
+      <a class="right" href="#" onclick="logout()">
+        <i class="material-icons">exit_to_app</i>
+      </a>
 
     </header>
     <div id="horizontal-wrapper">

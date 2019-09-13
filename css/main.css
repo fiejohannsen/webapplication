@@ -60,7 +60,7 @@ h1 {
 }
 
 #myplants>.topbar {
-  padding: 0px 60px 0px 30px;
+  padding: 0px 50px 0px 30px;
 }
 
 .topbar h2 {
@@ -85,9 +85,10 @@ h1 {
 
 /* ---------- tabbar styling ---------- */
 .tabbar {
-  background-color: var(--white);
+  background-color: inherit;
   position: fixed;
   width: 100%;
+  height: 8vh;
   bottom: 0;
   left: 0;
   right: 0;
@@ -101,13 +102,14 @@ h1 {
   display: inline-block;
   color: var(--text-color-dark);
   text-align: center;
-  padding: 0px 0px;
-  margin: 0;
-  width: 32.5%;
+  padding-top: 12px;
+  width: 32.6%;
+  height: 100%;
   text-decoration: none;
   font-size: 0.8em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  background-color: var(--white);
 }
 
 /* Change the color of links on hover */
@@ -120,6 +122,26 @@ h1 {
 .tabbar a.active {
   background-color: var(--light-blue);
   color: var(--text-color-dark);
+}
+
+.tabbar>a>.active-tab {
+  color: var(--white);
+}
+
+.tabbar>a.active>.active-tab {
+  display: block;
+  color: var(--text-color-dark);
+}
+
+.tabbar>a {
+  font-size: 8px;
+  line-height: 0;
+}
+
+.tabbar>a>.material-icons {
+  height: 30px;
+  line-height: 25px;
+  font-size: 28px;
 }
 
 /* ---------- page styling ---------- */
@@ -140,6 +162,20 @@ h1 {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   background-image: url(../img/loginbackground.png);
+}
+
+#login>.topbar {
+  display: none;
+}
+
+/* Log out style */
+.topbar>.right {
+  width: 6%;
+}
+
+.right>.material-icons {
+  color: var(--text-color-dark);
+  font-size: 35px;
 }
 
 /* ---------- animations ---------- */
@@ -228,6 +264,7 @@ h1 {
 
 .firebaseui-button {
   margin-left: 0px;
+  min-width: 200px;
 }
 
 .firebaseui-textfield {
@@ -302,11 +339,27 @@ h1 {
   box-shadow: none;
 }
 
+.row.row {
+  margin-bottom: 10px;
+}
+
 .card-image {
   background-color: var(--green-one);
   border-radius: 30px;
   width: 100%;
   height: 20vh;
+}
+
+.card-image>.waves-effect {
+  position: absolute;
+  display: block;
+  left: 0;
+  color: var(--white);
+  margin: 10px;
+}
+
+.card-image>.waves-effect>.material-icons {
+  font-size: 40px;
 }
 
 .col>.card>.card-image>img {
@@ -397,6 +450,12 @@ h1 {
   z-index: 12;
 }
 
+.added-plant-card-image>.waves-effect {
+  display: block;
+  right: 0;
+  left: auto;
+}
+
 .card>.added-plant-card-image>.card-title {
   top: 0;
   text-align: center;
@@ -409,6 +468,7 @@ h1 {
 .card>.added-plant-card-image>.card-title>h3 {
   margin-top: 0px;
   font-family: var(--font-family);
+  font-weight: 500;
 }
 
 /* STYILING FOR SEARCH BAR */
@@ -421,10 +481,28 @@ h1 {
 }
 
 .topbar>.search-container>.search {
+  margin: 0 auto;
+  width: 75%;
+}
+
+textarea.materialize-textarea {
+  color: red;
+}
+
+.search-container>.search-icon {
+  position: absolute;
+  font-size: 30px;
+  display: block;
+  margin: 10px 0px 0px 5px;
+}
+
+.topbar>.search-container>.search {
   border-bottom: 0px;
 }
 
-#add-container>.container {}
+#add-container>.container {
+  padding-bottom: 50px;
+}
 
 .topbar>.myplants-search-container {
   width: 100%;
