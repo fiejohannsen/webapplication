@@ -82,6 +82,8 @@ plantRef.onSnapshot(function(snapshotData) {
 // Append plants to the DOM //
 function appendPlants(plants) {
   let htmlTemplate = "";
+//variablen i viser, hvor mange gange for loopet har kørt
+  let i = 0;
   for (let plant of plants) {
     console.log(plant.id);
     console.log(plant.data().name);
@@ -89,7 +91,7 @@ function appendPlants(plants) {
     <div class="row">
       <div class="col s12 m6">
         <div class="card">
-          <div class="card-image">
+          <div class="card-image ${getBackgroundColor(i)}">
             <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
               <i class="medium material-icons">add_circle</i>
             </a>
@@ -100,12 +102,20 @@ function appendPlants(plants) {
       </div>
     </div>
     `;
+    //i = i + 1
+    i++;
   }
   document.querySelector('#plant-container').innerHTML = htmlTemplate;
 }
 
+//change backgroundcolors on cards
+function getBackgroundColor(i) {
+  const backgroundColors = ["card-background-color-one", "card-background-color-two", "card-background-color-three", "card-background-color-four"];
+// backgroundColors.length er 4
+  const backgroundNumber = i%4;
+  return backgroundColors[backgroundNumber]
 
-
+}
 
 // Search function in "Add" topbar //
 function addSearch(value) {
@@ -205,6 +215,7 @@ function deletePlant(plantId) {
 
 
 function appendMyPlants(mySelectedPlants) {
+  let i = 0;
   let htmlTemplate = "";
   for (let plant of mySelectedPlants) {
     console.log(plant.id);
@@ -212,8 +223,7 @@ function appendMyPlants(mySelectedPlants) {
     htmlTemplate += `
     <div class="card addedcard">
     <span class="card-title"><h3>${plant.data().name}</h3></span>
-
-      <div class="card-image added-plant-card-image">
+      <div class="card-image added-plant-card-image ${getBackgroundColor(i)}">
         <a class="halfway-fab waves-effect waves-light" onclick="deletePlant('${plant.id}')">
           <i class="medium material-icons">cancel</i>
         </a>
@@ -235,6 +245,7 @@ function appendMyPlants(mySelectedPlants) {
       </div>
     </div>
     `;
+    i++;
   }
   document.querySelector('#my-plants-container').innerHTML = htmlTemplate;
 }
