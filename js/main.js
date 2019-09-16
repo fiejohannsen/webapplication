@@ -106,6 +106,7 @@ function appendPlants(plants) {
 
 
 
+
 // Search function in "Add" topbar //
 function addSearch(value) {
   console.log(value);
@@ -163,8 +164,8 @@ function initializeMyPlants() {
     if (myPlants.length === 0) {
       document.querySelector('#my-plants-container').innerHTML = `
       <article class="welcome-container">
-      <h2>Hej ${currentUser.displayName.split(" ")[0]}</h2>
-    <h5>Klar til at komme i gang?<br><br>Du kan nu tilføje<br>dine planter!</h5>
+      <h2>Hi ${currentUser.displayName.split(" ")[0]}</h2>
+    <h5>You can now add<br>your plants.<br><br>Let's get started!</h5>
       <a class="halfway-fab waves-effect waves-light" onclick="showPage('add')">
       <i class="large material-icons">add_circle_outline</i>
         </a>
@@ -224,6 +225,13 @@ function appendMyPlants(mySelectedPlants) {
         <img class="card-icon" src="${plant.data().shadeicon}">
         <p>${plant.data().shade}</p>
         <img class="cal-img" src="${plant.data().calendar}">
+        <div class="switch">
+  <label>
+    <input type="checkbox">
+    <span class="lever"></span>
+    Remind me
+  </label>
+</div>
       </div>
     </div>
     `;

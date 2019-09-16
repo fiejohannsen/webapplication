@@ -64,14 +64,17 @@ h1 {
   padding: 0px 50px 0px 30px;
 }
 
-.topbar h2 {
-  margin: 0;
-  font-weight: 300;
+.topbar h3 {
+  color: var(--text-color-dark);
+  margin-top: 20px;
+  font-family: var(--font-family);
+  font-size: 30px;
+  text-transform: capitalize;
+  font-weight: 500;
 }
 
 .topbar a {
   text-decoration: none;
-  color: var(--text-color-light);
   position: absolute;
   top: 20px;
 }
@@ -345,15 +348,17 @@ h1 {
   color: var(--text-color-dark);
   width: 80%;
   margin: 0 auto;
+  font-family: var(--font-family);
 }
 
 .welcome-container>h2 {
-  margin: 80px 0 80px 0;
+  margin: 40px 0 80px 0;
 }
 
 .welcome-container>.waves-effect>.material-icons {
   color: var(--green-two);
-  padding-top: 60px;
+  padding-top: 40px;
+  font-size: 10rem;
 }
 
 /* Styling af Add side */
@@ -371,10 +376,10 @@ h1 {
 }
 
 .card-image {
-  background-color: var(--green-one);
   border-radius: 30px;
   width: 100%;
   height: 20vh;
+  background-color: var(--green-one);
 }
 
 .card-image>.waves-effect {
@@ -464,7 +469,7 @@ h1 {
   width: 80%;
   margin: auto 5px;
   display: inline-block;
-  height: 90%;
+  height: 80%;
   background-color: var(--light-blue);
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -500,6 +505,13 @@ h1 {
   margin-top: 0px;
   font-family: var(--font-family);
   font-weight: 500;
+  font-size: 30px;
+  color: var(--text-color-dark);
+}
+
+.switch>label {
+  font-size: 18px;
+  font-family: var(--font-family);
   color: var(--text-color-dark);
 }
 
@@ -544,5 +556,9 @@ textarea.materialize-textarea {
 }
 
 .topbar>.myplants-search-container {
+  width: 100%;
+}
+
+.calendar-img {
   width: 100%;
 }
