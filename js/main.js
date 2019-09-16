@@ -14,6 +14,9 @@ function showPage(pageId) {
   document.querySelector(`#${pageId}`).style.display = "block";
   location.href = `#${pageId}`;
   setActiveTab(pageId);
+  if (pageId == "myplants") {
+    document.getElementById("notification").style.display = "none";
+  }
 }
 
 // sets active tabbar/ menu item
@@ -64,18 +67,19 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const plantRef = db.collection("plants");
-
-let selectedPlantId = "";
+const userRef = db.collection("users");
+let currentUser = null;
+let selectedPlants = [];
 let plants = [];
 
 // ========== READ ==========
-// watch the database ref for changes
+// Watch the database ref for changes
 plantRef.onSnapshot(function(snapshotData) {
   plants = snapshotData.docs;
   appendPlants(plants);
 });
 
-// append plants to the DOM
+// Append plants to the DOM //
 function appendPlants(plants) {
   let htmlTemplate = "";
   for (let plant of plants) {
@@ -83,23 +87,18 @@ function appendPlants(plants) {
     console.log(plant.data().name);
     htmlTemplate += `
     <div class="row">
-  <div class="col s12 m6">
-    <div class="card">
-
-      <div class="card-image">
-      <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
-      <i class="medium material-icons">add_circle</i>
-      </a>
-      <img src="${plant.data().img}">
-
-        <span class="card-title"><h3>${plant.data().name}</h3>
-</span>
-
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-image">
+            <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
+              <i class="medium material-icons">add_circle</i>
+            </a>
+            <img src="${plant.data().img}">
+            <span class="card-title"><h3>${plant.data().name}</h3></span>
+            </div>
+        </div>
       </div>
-
     </div>
-  </div>
-</div>
     `;
   }
   document.querySelector('#plant-container').innerHTML = htmlTemplate;
@@ -107,7 +106,7 @@ function appendPlants(plants) {
 
 
 
-// Search function in add page topbar //
+// Search function in "Add" topbar //
 function addSearch(value) {
   console.log(value);
   let filteredPlants = [];
@@ -120,77 +119,6 @@ function addSearch(value) {
   console.log(filteredPlants);
   appendPlants(filteredPlants);
 }
-
-
-
-// Add plants to myplants
-let selectedPlants = [];
-
-function addPlant(plantId) {
-  console.log(plantId);
-  plantRef.doc(plantId).onSnapshot(function(doc) {
-    console.log(doc.data());
-    selectedPlants.push(doc);
-    console.log(selectedPlants);
-    appendselectedPlants(selectedPlants);
-
-  });
-
-}
-
-
-function appendselectedPlants(mySelectedPlants) {
-  let htmlTemplate = "";
-  for (let plant of mySelectedPlants) {
-    console.log(plant.id);
-    console.log(plant.data().name);
-    htmlTemplate += `
-
-    <div class="card">
-
-      <div class="card-image added-plant-card-image">
-      <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
-      <i class="medium material-icons">cancel</i>
-      </a> 
-      <span class="card-title"><h3>${plant.data().name}</h3>
-      </span>
-      <img src="${plant.data().img}">
-
-           </div>
-      <div class="card-content">
-      <img class="card-icon" src="${plant.data().watericon}">
-      <p>${plant.data().water}</p>
-      <img class="card-icon" src="${plant.data().shadeicon}">
-      <p>${plant.data().shade}</p>
-      <img class="cal-img" src="${plant.data().calendar}">
-      </div>
-</div>
-    `;
-  }
-  document.querySelector('#my-plants-container').innerHTML = htmlTemplate;
-
-}
-
-// Search function in myplants page topbar //
-function myplantsSearch(value) {
-  console.log(value);
-  let filteredPlants = [];
-  for (let plant of selectedPlants) {
-    let name = plant.data().name.toLowerCase();
-    if (name.includes(value.toLowerCase())) {
-      filteredPlants.push(plant);
-    }
-  }
-  console.log(filteredPlants);
-  appendselectedPlants(filteredPlants);
-}
-
-
-
-
-
-
-
 // Firebase UI configuration
 const uiConfig = {
   credentialHelper: firebaseui.auth.CredentialHelper.NONE,
@@ -208,10 +136,12 @@ firebase.auth().onAuthStateChanged(function(user) {
   let tabbar = document.querySelector('#tabbar');
   console.log(user);
   if (user) { // if user exists and is authenticated
+    currentUser = user;
     setDefaultPage();
     tabbar.classList.remove("hide");
-    appendUserData(user);
+    initializeMyPlants();
   } else { // if user is not logged in
+    currentUser = null;
     showPage("login");
     tabbar.classList.add("hide");
     ui.start('#firebaseui-auth-container', uiConfig);
@@ -224,8 +154,93 @@ function logout() {
   firebase.auth().signOut();
 }
 
-function appendUserData(user) {
-  document.querySelector('#myplants').innerHTML += `
+// ============== my plants setup ============== // henter alle myplants fra den enkelte bruger (currentuser.uid)
+function initializeMyPlants() {
+  // read my plants from firebase
+  userRef.doc(currentUser.uid).onSnapshot(function(snapshotData) {
 
-  `;
+    let myPlants = snapshotData.data().myPlants;
+    if (myPlants.length === 0) {
+      document.querySelector('#my-plants-container').innerHTML = `
+      <article class="welcome-container">
+      <h2>Hej ${currentUser.displayName.split(" ")[0]}</h2>
+    <h5>Klar til at komme i gang?<br><br>Du kan nu tilføje<br>dine planter!</h5>
+      <a class="halfway-fab waves-effect waves-light" onclick="showPage('add')">
+      <i class="large material-icons">add_circle_outline</i>
+        </a>
+      </article>
+`; //skriv det der
+    }
+    selectedPlants = [];
+    for (let myPlant of myPlants) {
+      plantRef.doc(myPlant).get().then(function(doc) {
+        selectedPlants.push(doc);
+        appendMyPlants(selectedPlants);
+      });
+    }
+  });
+}
+
+
+
+
+
+function addPlant(plantId) {
+  userRef.doc(currentUser.uid).set({
+    myPlants: firebase.firestore.FieldValue.arrayUnion(plantId)
+  }, {
+    merge: true
+  });
+  document.getElementById("notification").style.display = "block";
+}
+
+
+function deletePlant(plantId) {
+  userRef.doc(currentUser.uid).update({
+    myPlants: firebase.firestore.FieldValue.arrayRemove(plantId)
+  });
+}
+
+
+
+function appendMyPlants(mySelectedPlants) {
+  let htmlTemplate = "";
+  for (let plant of mySelectedPlants) {
+    console.log(plant.id);
+    console.log(plant.data().name);
+    htmlTemplate += `
+    <div class="card addedcard">
+    <span class="card-title"><h3>${plant.data().name}</h3></span>
+
+      <div class="card-image added-plant-card-image">
+        <a class="halfway-fab waves-effect waves-light" onclick="deletePlant('${plant.id}')">
+          <i class="medium material-icons">cancel</i>
+        </a>
+        <img src="${plant.data().img}">
+      </div>
+      <div class="card-content">
+        <img class="card-icon" src="${plant.data().watericon}">
+        <p>${plant.data().water}</p>
+        <img class="card-icon" src="${plant.data().shadeicon}">
+        <p>${plant.data().shade}</p>
+        <img class="cal-img" src="${plant.data().calendar}">
+      </div>
+    </div>
+    `;
+  }
+  document.querySelector('#my-plants-container').innerHTML = htmlTemplate;
+}
+
+// Search function in "My Plants" topbar //
+function myplantsSearch(value) {
+  console.log(value);
+  let filteredPlants = [];
+  for (let plant of selectedPlants) {
+    let name = plant.data().name.toLowerCase();
+    if (name.includes(value.toLowerCase())) {
+      filteredPlants.push(plant);
+    }
+  }
+  console.log(filteredPlants);
+  appendMyPlants(filteredPlants);
 }

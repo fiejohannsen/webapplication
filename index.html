@@ -9,11 +9,9 @@
   <meta name="author" content="Rasmus Cederdorff">
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <link rel="stylesheet" href="css/main.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/pog6zkp.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-
   <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 </head>
 
@@ -25,6 +23,7 @@
     </a>
 
     <a href="#myplants" onclick="showPage('myplants')">
+      <i id="notification" class="material-icons">fiber_manual_record</i>
       <i class="material-icons">person</i><span class="active-tab">My Plants</span>
     </a>
     <a href="#calendar" onclick="showPage('calendar')">
@@ -38,18 +37,16 @@
     <header class="topbar">
       <div class="search-container">
         <i class="material-icons search-icon">search</i>
+        <i class="material-icons photo-icon">center_focus_strong</i>
         <input class="search" type="search" placeholder="search" onkeyup="addSearch(this.value)">
       </div>
     </header>
 
     <div id="add-container" class="col s12">
       <div class="container">
-        <div class="row" id="plant-container">
-        </div>
+        <div class="row" id="plant-container"></div>
       </div>
     </div>
-
-
   </section>
 
 
@@ -57,17 +54,15 @@
   <section id="myplants" class="page">
     <header class="topbar">
       <div class="search-container myplants-search-container">
+        <i class="material-icons search-icon">search</i>
         <input class="search" type="search" placeholder="Search" onkeyup="myplantsSearch(this.value)">
       </div>
       <a class="right" href="#" onclick="logout()">
         <i class="material-icons">exit_to_app</i>
       </a>
-
     </header>
     <div id="horizontal-wrapper">
-      <div id="my-plants-container">
-
-      </div>
+      <div id="my-plants-container"></div>
     </div>
   </section>
 
@@ -98,6 +93,7 @@
   <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <!-- Materialize -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- main js file -->
