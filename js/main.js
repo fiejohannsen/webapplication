@@ -53,7 +53,7 @@ function showLoader(show) {
 
 // ========== Firebase sign in functionality ========== //
 
-// Your web app's Firebase configuration
+// Our web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCzlcvXdk_pCg4yRhFLW_WzXwA87TRgG08",
   authDomain: "plant-app-36c9b.firebaseapp.com",
@@ -72,64 +72,6 @@ let currentUser = null;
 let selectedPlants = [];
 let plants = [];
 
-// ========== READ ==========
-// Watch the database ref for changes
-plantRef.onSnapshot(function(snapshotData) {
-  plants = snapshotData.docs;
-  appendPlants(plants);
-});
-
-// Append plants to the DOM //
-function appendPlants(plants) {
-  let htmlTemplate = "";
-//variablen i viser, hvor mange gange for loopet har kørt
-  let i = 0;
-  for (let plant of plants) {
-    console.log(plant.id);
-    console.log(plant.data().name);
-    htmlTemplate += `
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="card">
-          <div class="card-image ${getBackgroundColor(i)}">
-            <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
-              <i class="medium material-icons">add_circle</i>
-            </a>
-            <img src="${plant.data().img}">
-            <span class="card-title"><h3>${plant.data().name}</h3></span>
-            </div>
-        </div>
-      </div>
-    </div>
-    `;
-    //i = i + 1
-    i++;
-  }
-  document.querySelector('#plant-container').innerHTML = htmlTemplate;
-}
-
-//change backgroundcolors on cards
-function getBackgroundColor(i) {
-  const backgroundColors = ["card-background-color-one", "card-background-color-two", "card-background-color-three", "card-background-color-four"];
-// backgroundColors.length er 4
-  const backgroundNumber = i%4;
-  return backgroundColors[backgroundNumber]
-
-}
-
-// Search function in "Add" topbar //
-function addSearch(value) {
-  console.log(value);
-  let filteredPlants = [];
-  for (let plant of plants) {
-    let name = plant.data().name.toLowerCase();
-    if (name.includes(value.toLowerCase())) {
-      filteredPlants.push(plant);
-    }
-  }
-  console.log(filteredPlants);
-  appendPlants(filteredPlants);
-}
 // Firebase UI configuration
 const uiConfig = {
   credentialHelper: firebaseui.auth.CredentialHelper.NONE,
@@ -165,6 +107,66 @@ function logout() {
   firebase.auth().signOut();
 }
 
+// ========== READ ==========
+// Watch the database ref for changes
+plantRef.onSnapshot(function(snapshotData) {
+  plants = snapshotData.docs;
+  appendPlants(plants);
+});
+
+// Append plants to the DOM //
+function appendPlants(plants) {
+  let htmlTemplate = "";
+  //variablen i viser, hvor mange gange for loopet har kørt
+  let i = 0;
+  for (let plant of plants) {
+    console.log(plant.id);
+    console.log(plant.data().name);
+    htmlTemplate += `
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-image ${getBackgroundColor(i)}">
+            <a class="halfway-fab waves-effect waves-light" onclick="addPlant('${plant.id}')">
+              <i class="medium material-icons">add_circle</i>
+            </a>
+            <img src="${plant.data().img}">
+            <span class="card-title"><h3>${plant.data().name}</h3></span>
+            </div>
+        </div>
+      </div>
+    </div>
+    `;
+    //i = i + 1
+    i++;
+  }
+  document.querySelector('#plant-container').innerHTML = htmlTemplate;
+}
+
+//change backgroundcolors on cards
+function getBackgroundColor(i) {
+  const backgroundColors = ["card-background-color-one", "card-background-color-two", "card-background-color-three", "card-background-color-four"];
+  // backgroundColors.length er 4
+  const backgroundNumber = i % 4;
+  return backgroundColors[backgroundNumber]
+
+}
+
+// Search function in "Add" topbar //
+function addSearch(value) {
+  console.log(value);
+  let filteredPlants = [];
+  for (let plant of plants) {
+    let name = plant.data().name.toLowerCase();
+    if (name.includes(value.toLowerCase())) {
+      filteredPlants.push(plant);
+    }
+  }
+  console.log(filteredPlants);
+  appendPlants(filteredPlants);
+}
+
+
 // ============== my plants setup ============== // henter alle myplants fra den enkelte bruger (currentuser.uid)
 function initializeMyPlants() {
   // read my plants from firebase
@@ -180,7 +182,7 @@ function initializeMyPlants() {
       <i class="large material-icons">add_circle_outline</i>
         </a>
       </article>
-`; //skriv det der
+`;
     }
     selectedPlants = [];
     for (let myPlant of myPlants) {
@@ -194,8 +196,7 @@ function initializeMyPlants() {
 
 
 
-
-
+// Add plants to user //
 function addPlant(plantId) {
   userRef.doc(currentUser.uid).set({
     myPlants: firebase.firestore.FieldValue.arrayUnion(plantId)
@@ -205,7 +206,7 @@ function addPlant(plantId) {
   document.getElementById("notification").style.display = "block";
 }
 
-
+// Delete plants from user //
 function deletePlant(plantId) {
   userRef.doc(currentUser.uid).update({
     myPlants: firebase.firestore.FieldValue.arrayRemove(plantId)
@@ -218,8 +219,6 @@ function appendMyPlants(mySelectedPlants) {
   let i = 0;
   let htmlTemplate = "";
   for (let plant of mySelectedPlants) {
-    console.log(plant.id);
-    console.log(plant.data().name);
     htmlTemplate += `
     <div class="card addedcard">
     <span class="card-title"><h3>${plant.data().name}</h3></span>
